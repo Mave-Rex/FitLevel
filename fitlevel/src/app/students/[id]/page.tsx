@@ -12,6 +12,12 @@ import {
   Info,
   UserRound,
   UserRoundCheck,
+  Pencil,
+  Trash2,
+  Plus,
+  X,
+  Save,
+
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -27,7 +33,7 @@ function StudentAvatar({ sex }: { sex: string }) {
       className={`w-12 h-12 rounded-full flex items-center justify-center ${bg}`}
     >
       {isFemale ? (
-        <UserRoundCheck className={iconColor} size={26} />
+        <UserRound className={iconColor} size={26} />
       ) : (
         <UserRound className={iconColor} size={26} />
       )}
@@ -90,9 +96,10 @@ export default function StudentDetailPage() {
           <ArrowLeft size={14} />
           Volver al panel
         </button>
-
+        
         <div className="flex items-center gap-3 ml-auto">
           <StudentAvatar sex={student.sex} />
+          
           <div className="text-right">
             <h1 className="text-lg font-bold text-slate-900">
               {student.firstName} {student.lastName}
@@ -102,6 +109,31 @@ export default function StudentDetailPage() {
             </p>
           </div>
         </div>
+        <div className="flex items-center gap-2">
+  <button
+    onClick={() => router.push(`/students/${student.id}/edit`)}
+    className="text-xs px-3 py-2 rounded-md border border-slate-200 bg-white hover:bg-slate-50 font-semibold text-slate-700 inline-flex items-center gap-2"
+  >
+    <Pencil size={14} />
+    Editar
+  </button>
+
+  <button
+    onClick={async () => {
+      const ok = confirm("¿Eliminar este alumno? Esta acción no se puede deshacer.");
+      if (!ok) return;
+
+      const res = await fetch(`/api/students/${student.id}`, { method: "DELETE" });
+      if (res.ok) router.push("/dashboard");
+      else alert("No se pudo eliminar. Intenta de nuevo.");
+    }}
+    className="text-xs px-3 py-2 rounded-md border border-rose-200 bg-rose-50 hover:bg-rose-100 font-semibold text-rose-700 inline-flex items-center gap-2"
+  >
+    <Trash2 size={14} />
+    Eliminar
+  </button>
+</div>
+ 
       </div>
 
       {/* Tabs */}

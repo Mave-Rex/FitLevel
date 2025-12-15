@@ -9,6 +9,7 @@ import {
   HelpCircle,
   Home,
   LogOut,
+  Trophy,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
@@ -61,22 +62,36 @@ export default function Navbar() {
     }
   }, [pathname]);
 
-  const links = useMemo(
-    () => [
-      { href: "/", label: "Inicio", icon: <Home size={16} /> },
-      ...(hasSession
-        ? [
-            {
-              href: "/dashboard",
-              label: "Dashboard",
-              icon: <LayoutDashboard size={16} />,
-            },
-          ]
-        : [{ href: "/login", label: "Login", icon: <LogIn size={16} /> }]),
-      { href: "/help", label: "Ayuda", icon: <HelpCircle size={16} /> },
-    ],
-    [hasSession]
-  );
+ const links = useMemo(
+  () => [
+    { href: "/", label: "Inicio", icon: <Home size={16} /> },
+
+    ...(hasSession
+      ? [
+          {
+            href: "/dashboard",
+            label: "Dashboard",
+            icon: <LayoutDashboard size={16} />,
+          },
+          {
+            href: "/rankings",
+            label: "Rankings",
+            icon: <Trophy size={16} />,
+          },
+        ]
+      : [
+          {
+            href: "/login",
+            label: "Login",
+            icon: <LogIn size={16} />,
+          },
+        ]),
+
+    { href: "/help", label: "Ayuda", icon: <HelpCircle size={16} /> },
+  ],
+  [hasSession]
+);
+
 
   const active = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
