@@ -109,7 +109,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3" onClick={closeMenu}>
           <div className="relative">
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo.JPG"
               alt="FitLevel Logo"
               width={44}
               height={44}
