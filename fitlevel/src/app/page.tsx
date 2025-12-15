@@ -106,7 +106,7 @@ export default function HomePage() {
           ¿Listo para transformar tu forma de entrenar?
         </h2>
         <p className="text-slate-600 mt-2 text-sm">
-          Únete a GymCoach y lleva a tus alumnos al siguiente nivel.
+          Únete a FitLevel y lleva a tus alumnos al siguiente nivel.
         </p>
 
         <Link

@@ -1,42 +1,49 @@
 // app/(auth)/login/page.tsx
 "use client";
 
-import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState, FormEvent } from "react";
+import { mockProfessors } from "../../lib/mockData";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setErrorMsg("");
     setLoading(true);
+    setErrorMsg("");
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const email = (formData.get("email") as string).trim().toLowerCase();
+    const password = (formData.get("password") as string).trim();
 
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
+    // 👇 Esto es solo para que puedas ver en la consola qué está llegando
+    console.log("email ingresado:", email);
+    console.log("password ingresada:", password);
+    console.log("mockProfessors:", mockProfessors);
 
-    setLoading(false);
+    const professor = mockProfessors.find(
+      (p) =>
+        p.email.toLowerCase() === email &&
+        p.password === password
+    );
 
-    if (res?.error) {
-      setErrorMsg(res.error);
+    if (!professor) {
+      setErrorMsg("Credenciales incorrectas");
+      setLoading(false);
       return;
     }
+
+    // Guardar sesión en localStorage
+    localStorage.setItem("professor", JSON.stringify(professor));
 
     router.push("/dashboard");
   }
 
   return (
-    <div className="max-w-sm mx-auto">
+    <div className="max-w-sm mx-auto mt-10">
       <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 space-y-4">
         <h2 className="text-lg font-semibold text-slate-900">Iniciar sesión</h2>
 
@@ -55,7 +62,8 @@ export default function LoginPage() {
               type="email"
               name="email"
               required
-              className="w-full mt-1 rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              defaultValue="carlos@example.com" // 👈 para que pruebes rápido
+              className="w-full mt-1 rounded-md border border-slate-300 px-3 py-2 text-sm"
             />
           </div>
 
@@ -67,14 +75,15 @@ export default function LoginPage() {
               type="password"
               name="password"
               required
-              className="w-full mt-1 rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              defaultValue="123456"              // 👈 clave correcta
+              className="w-full mt-1 rounded-md border border-slate-300 px-3 py-2 text-sm"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 text-sm disabled:opacity-60"
+            className="w-full mt-2 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 text-sm"
           >
             {loading ? "Ingresando..." : "Entrar"}
           </button>
