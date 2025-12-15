@@ -10,6 +10,7 @@ import {
   UserRoundCheck,
   Target,
   Share2,
+  Plus,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -113,6 +114,14 @@ export default function DashboardPage() {
         transition={{ duration: 0.35, ease: "easeOut", delay: 0.1 }}
       >
         <div className="flex items-center justify-between mb-4">
+          <Link
+        href="/students/new"
+        className="text-xs px-3 py-2 rounded-md bg-emerald-600 text-white hover:bg-emerald-500 font-semibold flex items-center gap-2 shadow-sm"
+      >
+        <Plus size={14} />
+        Nuevo alumno
+      </Link>
+
           <div className="flex items-center gap-2">
             <Target size={20} className="text-emerald-600" />
             <h3 className="text-lg font-semibold text-slate-900">

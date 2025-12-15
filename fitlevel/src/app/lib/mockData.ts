@@ -28,11 +28,10 @@ export const mockProfessors: Professor[] = [
     phone: "+593 98 111 2233",
     isApproved: true,
 
-    // ✅ NUEVO
     stars: 3,
-    zone: "Quito Norte",      // ✅ zona geográfica (antes “sector”)
+    zone: "ESPE Sangolquí",      // ✅ zona geográfica (antes “sector”)
     showOnMap: true,          // ✅ aparece en mapa / proximidad
-    location: { lat: -0.18, lng: -78.48, address: "La Carolina, Quito" }
+    location: { lat: -0.31544, lng: -78.44, address: "ESPE, Sangolquí" }
   },
 ];
 
@@ -93,22 +92,22 @@ export const mockStudents: Student[] = [
   },
   {
     id: 6,
-    firstName: "Daniel",
-    lastName: "Herrera",
-    age: 18,
-    sex: "M",
-    weightKg: 71.1,
-    heightCm: 178,
-    professorId: 1,
-  },
-  {
-    id: 7,
     firstName: "Isabella",
     lastName: "Cárdenas",
     age: 15,
     sex: "F",
     weightKg: 50.6,
     heightCm: 158,
+    professorId: 1,
+  },
+  {
+    id: 7,
+    firstName: "Daniel",
+    lastName: "Herrera",
+    age: 18,
+    sex: "M",
+    weightKg: 71.1,
+    heightCm: 178,
     professorId: 1,
   },
   {
@@ -193,7 +192,7 @@ export const mockGoals: Goal[] = [
     startDate: "2025-01-01",
     endDate: "2025-01-31",
     reward: "Sticker FitLevel + felicitación en el panel",
-    status: "in_progress",
+    status: "completed",
   },
   {
     id: 2,
@@ -205,8 +204,33 @@ export const mockGoals: Goal[] = [
     startDate: "2025-01-01",
     endDate: "2025-02-10",
     reward: "Insignia: Constancia",
-    status: "pending",
+    status: "in_progress",
   },
+  
+  {
+  id: 3,
+  studentId: 1,
+  title: "Mejorar resistencia aeróbica",
+  description: "Completar 10 minutos continuos de actividad aeróbica sin pausas largas.",
+  targetType: "cardio_minutes",
+  targetValue: 10,
+  startDate: "2025-02-01",
+  endDate: "2025-02-28",
+  reward: "Insignia: Energía Activa",
+  status: "pending",
+},
+{
+  id: 4,
+  studentId: 1,
+  title: "Aprender y ejecutar rutina básica completa",
+  description: "Realizar correctamente una rutina básica de cuerpo completo (calentamiento, ejercicio y estiramiento).",
+  targetType: "routine_completion",
+  targetValue: 1,
+  startDate: "2025-02-01",
+  endDate: "2025-03-05",
+  reward: "Trofeo virtual: Rutina Dominada",
+  status: "pending",
+},
 
   // Student 2 - Mateo
   {

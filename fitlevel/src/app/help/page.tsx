@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { Dumbbell, Microscope, Code } from "lucide-react";
+import { Dumbbell, Microscope, Code, Target, Eye } from "lucide-react";
 
 
 import {
@@ -281,6 +281,101 @@ export default function AyudaPage() {
           ))}
         </div>
       </motion.section>
+
+          {/* MISIÓN & VISIÓN (cards animadas) */}
+<motion.section
+  variants={stagger}
+  initial="hidden"
+  whileInView="show"
+  viewport={{ once: true, amount: 0.25 }}
+  className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8"
+>
+  {/* Glow suave */}
+  <div className="pointer-events-none absolute inset-0">
+    <motion.div
+      className="absolute -top-20 -right-24 h-64 w-64 rounded-full bg-emerald-200/40 blur-3xl"
+      animate={{ y: [0, 14, 0], x: [0, -10, 0] }}
+      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+    />
+    <motion.div
+      className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-sky-200/35 blur-3xl"
+      animate={{ y: [0, -12, 0], x: [0, 10, 0] }}
+      transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+    />
+  </div>
+
+  <motion.div variants={item} className="relative">
+    <div className="flex items-end justify-between gap-4">
+      <div>
+        <h2 className="text-xl font-extrabold text-slate-900">Misión y Visión</h2>
+        <p className="mt-2 text-slate-600">
+          Lo que guía a FitLevel y hacia dónde queremos llegar.
+        </p>
+      </div>
+    </div>
+
+    <div className="mt-6 grid lg:grid-cols-2 gap-4">
+      {/* MISIÓN */}
+      <motion.div
+        variants={item}
+        whileHover={{ y: -3 }}
+        className="group rounded-2xl border border-slate-200 bg-slate-50 p-5"
+      >
+        <div className="flex items-start gap-3">
+          <div className="h-11 w-11 rounded-2xl bg-white border border-slate-200 flex items-center justify-center">
+            <Target size={18} className="text-emerald-700" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-extrabold text-slate-900">MISIÓN</p>
+            <motion.div
+              className="mt-2 h-[2px] w-10 bg-emerald-500/70 rounded-full"
+              initial={{ width: 18, opacity: 0.6 }}
+              whileHover={{ width: 56, opacity: 1 }}
+              transition={{ duration: 0.25 }}
+            />
+            <p className="mt-3 text-sm leading-relaxed text-slate-700">
+              Somos una plataforma digital dedicada al registro, análisis y motivación del rendimiento
+              físico estudiantil. Brindamos a los docentes herramientas tecnológicas innovadoras que
+              permiten establecer metas personalizadas, fomentar la competitividad sana y garantizar la
+              transparencia en la evaluación deportiva, contribuyendo al desarrollo integral de los
+              estudiantes.
+            </p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* VISIÓN */}
+      <motion.div
+        variants={item}
+        whileHover={{ y: -3 }}
+        className="group rounded-2xl border border-slate-200 bg-slate-50 p-5"
+      >
+        <div className="flex items-start gap-3">
+          <div className="h-11 w-11 rounded-2xl bg-white border border-slate-200 flex items-center justify-center">
+            <Eye size={18} style={{ color: BRAND_BLUE }} />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-extrabold text-slate-900">VISIÓN</p>
+            <motion.div
+              className="mt-2 h-[2px] w-10 rounded-full"
+              style={{ backgroundColor: BRAND_BLUE, opacity: 0.6 }}
+              initial={{ width: 18, opacity: 0.6 }}
+              whileHover={{ width: 56, opacity: 1 }}
+              transition={{ duration: 0.25 }}
+            />
+            <p className="mt-3 text-sm leading-relaxed text-slate-700">
+              Convertirnos en la plataforma líder en Latinoamérica en el seguimiento del rendimiento
+              físico estudiantil, integrando tecnologías educativas, gamificación y análisis de datos,
+              garantizando transparencia, equidad y motivación deportiva. Para el futuro, buscamos
+              expandirnos a instituciones deportivas, integrar inteligencia artificial y adaptarnos a los
+              avances políticos, económicos, educativos y tecnológicos del entorno.
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  </motion.div>
+</motion.section>
 
       {/* EQUIPO (stagger + hover) */}
       <motion.section

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { mockProfessors } from "../lib/mockData";
 
+const MapClient = dynamic(() => import("./MapClient"), { ssr: false });
 // ✅ Dynamic imports para evitar SSR issues con leaflet
 const MapContainer = dynamic(
   () => import("react-leaflet").then((m) => m.MapContainer),
@@ -114,11 +115,11 @@ export default function ProfesoresPage() {
           </Link>
 
           <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900">
-            Conoce a los profes
+            Conoce a los Profes
           </h1>
           <p className="mt-2 text-slate-600 max-w-2xl">
             Profesores verificados con clasificación y ubicación para clases por
-            proximidad (mapa embebido).
+            proximidad.
           </p>
         </div>
 
@@ -246,38 +247,12 @@ export default function ProfesoresPage() {
 
           <div className="h-[calc(520px-56px)]">
             {/* key para recrear mapa y centrar sin usar hooks de leaflet */}
-            <MapContainer
-              key={selected?.id ?? "map"}
-              center={center as any}
-              zoom={14}
-              scrollWheelZoom={false}
-              className="h-full w-full"
-            >
-              <TileLayer
-                attribution='&copy; OpenStreetMap'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
+            <MapClient
+              center={center as [number, number]}
+              items={filtered}
+              onSelect={setSelectedId}
+            />
 
-              {filtered.map((p: any) => (
-                <Marker
-                  key={p.id}
-                  position={[p.location.lat, p.location.lng] as any}
-                  eventHandlers={{
-                    click: () => setSelectedId(p.id),
-                  }}
-                >
-                  <Popup>
-                    <div className="text-sm">
-                      <div className="font-bold">
-                        {p.firstName} {p.lastName}
-                      </div>
-                      <div className="text-slate-600">{p.specialty}</div>
-                      <div className="text-slate-600">Zona: {p.zone}</div>
-                    </div>
-                  </Popup>
-                </Marker>
-              ))}
-            </MapContainer>
           </div>
         </aside>
       </div>

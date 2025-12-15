@@ -42,7 +42,7 @@ export default function Footer() {
         {/* CTA ayuda + redes */}
         <div className="flex flex-col items-end gap-2">
           <motion.a
-            href="../help"
+            href="/help"
             whileHover={{ scale: 1.03 }}
             className="inline-flex items-center gap-2 rounded-full border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-50 transition-colors"
           >

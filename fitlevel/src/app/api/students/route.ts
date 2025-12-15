@@ -1,34 +1,33 @@
-import { NextResponse } from "next/server";
-import { mockStudents } from "../../lib/mockData";
+import { NextRequest, NextResponse } from "next/server";
+import { addStudent, listStudents } from "./store";
 
-export async function GET() {
-  // Retorna todos los estudiantes
-  return NextResponse.json(mockStudents);
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const professorId = searchParams.get("professorId");
+  const data = listStudents(professorId ? Number(professorId) : undefined);
+  return NextResponse.json(data);
 }
 
-export async function POST(req: Request) {
-  // Crea un nuevo alumno
-  const student = await req.json();
-  mockStudents.push(student);
-  return NextResponse.json(student, { status: 201 });
-}
+export async function POST(req: NextRequest) {
+  const body = await req.json();
 
-export async function PUT(req: Request) {
-  // Actualiza un alumno por ID
-  const updatedStudent = await req.json();
-  const index = mockStudents.findIndex((s) => s.id === updatedStudent.id);
-  if (index !== -1) {
-    mockStudents[index] = updatedStudent;
+  // Requeridos mínimos (ajústalo si quieres validación más estricta)
+  const required = ["firstName", "lastName", "age", "sex", "weightKg", "heightCm", "professorId"];
+  for (const k of required) {
+    if (body?.[k] === undefined || body?.[k] === null) {
+      return NextResponse.json({ message: `Missing field: ${k}` }, { status: 400 });
+    }
   }
-  return NextResponse.json(updatedStudent);
-}
 
-export async function DELETE(req: Request) {
-  // Elimina un alumno por ID
-  const { id } = await req.json();
-  const index = mockStudents.findIndex((s) => s.id === id);
-  if (index !== -1) {
-    mockStudents.splice(index, 1);
-  }
-  return NextResponse.json({ message: "Alumno eliminado" });
+  const created = addStudent({
+    firstName: String(body.firstName),
+    lastName: String(body.lastName),
+    age: Number(body.age),
+    sex: String(body.sex),
+    weightKg: Number(body.weightKg),
+    heightCm: Number(body.heightCm),
+    professorId: Number(body.professorId),
+  });
+
+  return NextResponse.json(created, { status: 201 });
 }

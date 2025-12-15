@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
+
+
 function StudentAvatar({ sex }: { sex: string }) {
   const isFemale = sex === "F";
   const bg = isFemale ? "bg-pink-100" : "bg-blue-100";

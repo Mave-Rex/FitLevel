@@ -1,20 +1,14 @@
-// app/public/students/[id]/page.tsx
 "use client";
 
-import {
-  mockStudents,
-  mockGoals,
-  mockProgress,
-} from "../../../lib/mockData";
+import { mockStudents, mockGoals, mockProgress } from "../../../lib/mockData";
 import { ProgressPath } from "../../../students/[id]/progressPath";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Share2 } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function PublicStudentPage() {
   const router = useRouter();
-
-  // 👇 Aquí usamos useParams en lugar de recibir { params } en los argumentos
   const params = useParams<{ id: string }>();
   const studentId = Number(params.id);
 
@@ -33,9 +27,36 @@ export default function PublicStudentPage() {
     .filter((p) => p.studentId === student.id)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 
+  // Nuevo estado para el link copiado
+  const [copied, setCopied] = useState(false);
+
+  const fullPublicUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/public/students/${student.id}`
+      : "";
+
+  // Función para copiar al portapapeles
+  async function copyPublicLink() {
+    try {
+      await navigator.clipboard.writeText(fullPublicUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // Reset después de 2 segundos
+    } catch {
+      // Fallback si la API de clipboard falla
+      const el = document.createElement("textarea");
+      el.value = fullPublicUrl;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }
+
   return (
     <motion.div
-      className="max-w-xl mx-auto mt-10 space-y-5"
+      className="max-w-4xl xl:max-w-5xl mx-auto mt-10 space-y-6 px-4"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
@@ -65,6 +86,37 @@ export default function PublicStudentPage() {
         </p>
       </section>
 
+      {/* Botón para compartir link */}
+      <section className="bg-white rounded-xl shadow-md border border-slate-200 p-4 space-y-3">
+        <div className="flex items-center gap-2">
+        <h2 className="text-base font-semibold text-slate-900">
+          Compartir progreso
+        </h2>
+        
+          <motion.button
+            onClick={copyPublicLink}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="px-4 py-2 rounded-md bg-emerald-600 text-white hover:bg-emerald-500 flex items-center gap-2"
+          >
+            <Share2 size={16} />
+            Obtener link
+          </motion.button>
+
+          {/* Mostrar "copiado" con animación */}
+          {copied && (
+            <motion.span
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: -12 }}
+              transition={{ duration: 0.3 }}
+              className="text-xs font-semibold text-emerald-700"
+            >
+              ¡Copiado!
+            </motion.span>
+          )}
+        </div>
+      </section>
+
       <section className="bg-white rounded-xl shadow-md border border-slate-200 p-4 space-y-3">
         <h2 className="text-base font-semibold text-slate-900">
           Camino de progreso
@@ -74,6 +126,7 @@ export default function PublicStudentPage() {
             id: g.id,
             title: g.title,
             status: g.status as any,
+            reward: g.reward ?? "", // Añadimos el premio en el path
           }))}
         />
       </section>

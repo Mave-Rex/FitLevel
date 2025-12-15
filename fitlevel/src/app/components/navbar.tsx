@@ -73,7 +73,7 @@ export default function Navbar() {
             },
           ]
         : [{ href: "/login", label: "Login", icon: <LogIn size={16} /> }]),
-      { href: "../help", label: "Ayuda", icon: <HelpCircle size={16} /> },
+      { href: "/help", label: "Ayuda", icon: <HelpCircle size={16} /> },
     ],
     [hasSession]
   );
