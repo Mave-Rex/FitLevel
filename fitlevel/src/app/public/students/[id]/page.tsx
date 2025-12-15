@@ -36,7 +36,7 @@ function statusPillClasses(status: string) {
 }
 
 function getAvatarEmoji(firstName: string) {
-  const pool = ["🦖", "🐯", "🐸", "🦊", "🐼", "🐵", "🦁", "🐙", "🐲", "🦄"];
+  const pool = ["🦄", "🐯", "🐸", "🦊", "🐼", "🐵", "🦁", "🐙", "🐲", "🦖"];
   let sum = 0;
   for (let i = 0; i < firstName.length; i++) sum += firstName.charCodeAt(i);
   return pool[sum % pool.length];
