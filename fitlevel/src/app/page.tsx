@@ -6,6 +6,7 @@ import {
   LineChart,
   ArrowRight,
   ShieldCheck,
+  LogIn,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -14,37 +15,48 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="max-w-3xl mx-auto px-4">
-        <div className="flex justify-center">
-          <Dumbbell size={60} className="text-emerald-600" />
-        </div>
+  <div className="flex justify-center">
+    <Dumbbell size={60} className="text-emerald-600" />
+  </div>
 
-        <h1 className="text-4xl font-extrabold text-slate-900 leading-tight mt-4">
-          La Plataforma Inteligente para Entrenadores
-          <br />
-          <span className="text-emerald-600">y Gestión de Alumnos</span>
-        </h1>
+  <h1 className="text-4xl font-extrabold text-slate-900 leading-tight mt-6">
+    La Plataforma Inteligente para Entrenadores
+    <br />
+    <span className="text-emerald-600">y Gestión de Alumnos</span>
+  </h1>
 
-        <p className="text-slate-600 text-lg mt-4">
-          Administra alumnos, crea objetivos personalizados, registra progreso
-          y motiva con un sistema visual gamificado. Todo en un solo lugar.
-        </p>
+  <p className="text-slate-600 text-lg mt-4 text-center">
+    Administra alumnos, crea objetivos personalizados, registra progreso
+    y motiva con un sistema visual gamificado. Todo en un solo lugar.
+  </p>
 
-        <div className="flex items-center justify-center gap-4 mt-8">
-          <Link
-            href="/register"
-            className="bg-emerald-600 hover:bg-emerald-500 shadow-md text-white px-6 py-3 rounded-md font-semibold flex items-center gap-2"
-          >
-            Comenzar ahora <ArrowRight size={18} />
-          </Link>
+  <div className="flex items-center justify-center gap-6 mt-8">
+    <Link
+      href="/register"
+      className="bg-emerald-600 hover:bg-emerald-500 shadow-md text-white px-8 py-4 rounded-md font-semibold flex items-center gap-2"
+    >
+      Comenzar ahora <ArrowRight size={18} />
+    </Link>
 
-          <Link
-            href="/login"
-            className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-6 py-3 rounded-md font-semibold"
-          >
-            Iniciar Sesión
-          </Link>
-        </div>
-      </section>
+    <Link
+      href="/login"
+      className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-8 py-4 rounded-md font-semibold flex items-center gap-2"
+    >
+      Iniciar Sesión <LogIn size={18} />
+
+    </Link>
+  </div>
+
+  <div className="flex justify-center mt-8">
+    <Link
+      href="/professors"
+      className="bg-[#0D3B66] hover:bg-[#0D3B80] shadow-md text-white px-8 py-4 rounded-md font-semibold flex items-center gap-2"
+    >
+      Conoce a los Profes <Dumbbell  size={18} />
+    </Link>
+  </div>
+</section>
+
 
       {/* CARACTERISTICAS */}
       <section className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto px-4">

@@ -44,3 +44,22 @@ export interface ProgressLog {
   weightKg?: number;
   notes?: string;
 }
+
+export type ProfessorStars = 5 | 3 | 1;
+
+export interface ProfessorLocation {
+  lat: number;
+  lng: number;
+  address?: string;
+}
+
+export interface Professor {
+  // ...tus campos actuales (firstName, lastName, email, phone, specialty, isApproved, etc.)
+
+  stars: ProfessorStars;
+  zone: string;          // ✅ zona geográfica
+  showOnMap: boolean;    // ✅ aparece en mapa/proximidad
+  location: ProfessorLocation;
+}
+
+

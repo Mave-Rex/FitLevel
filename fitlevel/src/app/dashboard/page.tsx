@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
+
+
 function StudentAvatar({ sex }: { sex: string }) {
   const isFemale = sex === "F";
   const bg = isFemale ? "bg-pink-100" : "bg-blue-100";
@@ -23,7 +25,7 @@ function StudentAvatar({ sex }: { sex: string }) {
       className={`w-10 h-10 rounded-full flex items-center justify-center ${bg}`}
     >
       {isFemale ? (
-        <UserRoundCheck className={iconColor} size={22} />
+        <UserRound className={iconColor} size={22} />
       ) : (
         <UserRound className={iconColor} size={22} />
       )}
@@ -52,6 +54,8 @@ const itemVariants = {
   },
 };
 
+
+
 export default function DashboardPage() {
   const router = useRouter();
   const professor = useProfessor();
@@ -68,6 +72,7 @@ export default function DashboardPage() {
   );
 
   return (
+    
     <motion.div
       className="space-y-6 mt-6"
       initial={{ opacity: 0, y: 10 }}
@@ -102,7 +107,7 @@ export default function DashboardPage() {
 
       {/* Lista de alumnos */}
       <motion.section
-        className="bg-white rounded-xl shadow-md border border-slate-200 p-5"
+        className="bg-white py-8 rounded-xl shadow-md border border-slate-200 p-5"
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: "easeOut", delay: 0.1 }}
@@ -143,7 +148,10 @@ export default function DashboardPage() {
                   className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 border border-slate-200 rounded-lg px-3 py-3 bg-white hover:bg-slate-50 transition-transform"
                   variants={itemVariants}
                   whileHover={{ scale: 1.01 }}
+
                 >
+
+                  
                   {/* Info principal */}
                   <div className="flex items-center gap-3">
                     <StudentAvatar sex={s.sex} />
