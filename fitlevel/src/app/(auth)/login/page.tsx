@@ -62,7 +62,7 @@ export default function LoginPage() {
               type="email"
               name="email"
               required
-              defaultValue="carlos@example.com" // 👈 para que pruebes rápido
+              defaultValue="" // 👈 para que pruebes rápido
               className="w-full mt-1 rounded-md border border-slate-300 px-3 py-2 text-sm"
             />
           </div>
@@ -75,7 +75,7 @@ export default function LoginPage() {
               type="password"
               name="password"
               required
-              defaultValue="123456"              // 👈 clave correcta
+              defaultValue=""              // 👈 clave correcta
               className="w-full mt-1 rounded-md border border-slate-300 px-3 py-2 text-sm"
             />
           </div>
